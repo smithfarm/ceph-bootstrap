@@ -28,6 +28,7 @@ run cephadm bootstrap:
 {%- if 'container' in pillar['ceph-salt'] and 'ceph' in pillar['ceph-salt']['container']['images'] %}
         CEPHADM_IMAGE={{ pillar['ceph-salt']['container']['images']['ceph'] }} \
 {%- endif %}
+        timeout 15m \
         cephadm --verbose bootstrap --mon-ip {{ grains['fqdn_ip4'][0] }} \
                 --initial-dashboard-user {{ dashboard_username }} \
                 --output-keyring /etc/ceph/ceph.client.admin.keyring \

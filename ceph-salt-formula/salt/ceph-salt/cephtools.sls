@@ -20,7 +20,7 @@ install cephadm:
 download ceph container image:
   cmd.run:
     - name: |
-        podman pull {{ pillar['ceph-salt']['container']['images']['ceph'] }}
+        timeout 15m podman pull {{ pillar['ceph-salt']['container']['images']['ceph'] }}
     - failhard: True
 {% endif %}
 {{ macros.end_step('Download ceph container image') }}
