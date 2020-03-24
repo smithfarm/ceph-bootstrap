@@ -30,7 +30,6 @@ service_reload:
     - makedirs: True
     - backup: minion
     - failhard: True
-
 {{ macros.end_step('Configure chrony service') }}
 
 {{ macros.begin_step('Start chrony service') }}
@@ -41,7 +40,16 @@ start chronyd:
     - failhard: True
 {{ macros.end_step('Start chrony service') }}
 
-{% endif %}
+{{ macros.begin_step('Sync clocks') }}
+sync clocks:
+  cmd.run:
+    - name: |
+        chronyc makestep
+        chronyc waitsync
+    - failhard: True
+{{ macros.end_step('Sync clocks') }}
+
+{% endif %} {# pillar['ceph-salt']['time_server'].get('enabled', True) #}
 
 prevent empty file:
   test.nop
