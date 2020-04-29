@@ -41,10 +41,10 @@ start chronyd:
     - failhard: True
 {{ macros.end_step('Start chrony service') }}
 
-{{ macros.end_stage('Prepare cluster for time synchronization') }}
-
 {% endif %}
 
-prevent empty time-prep:
+prevent empty file:
   test.nop
+
+{{ macros.end_stage('Prepare cluster for time synchronization') }}
 
