@@ -22,8 +22,9 @@ def validate_config(host_ls):
     time_server_host = PillarManager.get('ceph-salt:time_server:server_host')
     if not time_server_host:
         return 'No time server host specified in config'
+    time_server_host_is_minion = PillarManager.get('ceph-salt:time_server:is_minion')
     time_server_subnet = PillarManager.get('ceph-salt:time_server:subnet')
-    if not time_server_subnet:
+    if time_server_host_is_minion and not time_server_subnet:
         return 'No time server subnet specified in config'
     all_nodes = PillarManager.get('ceph-salt:minions:all')
     for admin_node in admin_nodes:

@@ -269,8 +269,10 @@ class TimeServerHandler(PillarHandler):
         node = CephNodeManager.ceph_salt_node_by_hostname(value)
         if node:
             PillarManager.set('ceph-salt:time_server:subnet', node.public_subnet)
+            PillarManager.set('ceph-salt:time_server:is_minion', True)
         else:
             PillarManager.reset('ceph-salt:time_server:subnet')
+            PillarManager.set('ceph-salt:time_server:is_minion', False)
         super().save(value)
 
     def possible_values(self):
