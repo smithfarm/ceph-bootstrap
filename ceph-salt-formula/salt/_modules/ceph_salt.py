@@ -38,4 +38,4 @@ def probe_ntp(ahost):
     except ntplib.NTPException:
         return 1
     except:
-        return 3
+        raise
