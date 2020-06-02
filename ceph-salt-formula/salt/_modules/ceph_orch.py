@@ -9,7 +9,7 @@ def configured():
         return False
     if not __salt__['file.file_exists']("/etc/ceph/ceph.client.admin.keyring"):
         return False
-    ret = __salt__['cmd.run_all']("ceph orch status")
+    ret = __salt__['cmd.run_all']("timeout 30 ceph orch status")
     if ret['retcode'] != 0:
         return False
     return True
